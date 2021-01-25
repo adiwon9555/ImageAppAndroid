@@ -15,8 +15,8 @@ interface UnsplashApi {
     }
 
     @Headers("Accept-Version: v1", "Authorization: Client-ID $CLIENT_ID")
-    @GET
-    fun searchPhotos(
+    @GET("search/photos")
+    suspend fun searchPhotos(
         //Inside @Query is actually the real parameter send in api
         @Query("query") query: String,
         @Query("page") page : Int,

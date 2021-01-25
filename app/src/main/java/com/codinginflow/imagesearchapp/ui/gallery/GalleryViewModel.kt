@@ -1,22 +1,24 @@
 package com.codinginflow.imagesearchapp.ui.gallery
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.codinginflow.imagesearchapp.data.UnsplashRepository
 
 
 class GalleryViewModel @ViewModelInject constructor(
-    private val unsplashRepository: UnsplashRepository
+    private val unsplashRepository: UnsplashRepository,
+    @Assisted private val state: SavedStateHandle
 ): ViewModel() {
     companion object{
         private const val DEFAULT_QUERY = "cat"
+        private const val CURRENT_QUERY = "currentQuery"
     }
     //This time using livedata but can be done even with flow
-    private val currentQuery = MutableLiveData(DEFAULT_QUERY)
+//    private val currentQuery = MutableLiveData(DEFAULT_QUERY)
+    private val currentQuery = state.getLiveData<String>(CURRENT_QUERY,DEFAULT_QUERY)
+
 
     //switchmap gets latest data
     val photos = currentQuery.switchMap {
@@ -27,6 +29,7 @@ class GalleryViewModel @ViewModelInject constructor(
         //setting currentQuery's new data which will trigger switchMap
         currentQuery.value = query
     }
+
 
 
 

@@ -14,6 +14,7 @@ class UnsplashRepository @Inject constructor(
         Pager(
             config = PagingConfig(
                 pageSize = 20,
+                //max size for our recycler view to hold items in memory, post that it will need to load again
                 maxSize = 100,
                 //enablePlaceholders to show placeholder for data that is about to show
                 enablePlaceholders = false

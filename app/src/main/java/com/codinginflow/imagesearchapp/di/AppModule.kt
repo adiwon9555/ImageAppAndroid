@@ -22,6 +22,8 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+    @Provides
+    @Singleton
     fun provideUnsplashApi(retrofit : Retrofit) : UnsplashApi =
         retrofit.create(UnsplashApi::class.java)
 }
